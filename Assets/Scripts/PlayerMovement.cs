@@ -14,23 +14,16 @@ public class PlayerMovement : MonoBehaviour
 
     public Rigidbody playerRb;
     public Animator animator;
-    public GameObject cam;
-    public GameObject cam2;
-    public GameObject bulletPrefab;
-    public GameObject bulletSpawn;
-
+    public Camera cam;
 
     public static int spacePressed = 0;
     public float range = 100f;
 
     private float gravity = 850f;
-
-    private int tPressed = 0;
     // Start is called before the first frame update
     void Start()
     {
-        cam.SetActive(true);
-        cam2.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -72,18 +65,12 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log(spacePressed);
         }
 
-        if(Input.GetKeyDown(KeyCode.Q) && tPressed == 0)
+        if(Input.GetKeyDown(KeyCode.Q))
         {
             PlayerShoot();
-            Instantiate(bulletPrefab, bulletSpawn.transform.position, transform.rotation);
-        }
-        else if (Input.GetKeyDown(KeyCode.Q) && tPressed == 1)
-        {
-            PlayerShoot2();
-            Instantiate(bulletPrefab, bulletSpawn.transform.position, transform.rotation);
         }
 
-        /*if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             cam.transform.Rotate(new Vector3(Time.deltaTime * -verticalRotate, 0, 0));
         }
@@ -91,37 +78,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.DownArrow))
         {
             cam.transform.Rotate(new Vector3(Time.deltaTime * verticalRotate, 0, 0));
-        }*/
-
-        //if(Input.GetKey(KeyCode.T))
-        //{
-        //    cam.SetActive(false);
-        //    cam2.SetActive(true);
-
-        //    tPressed += 1;
-        //}
-
-        if(tPressed == 1)
-        {
-            if(Input.GetKeyDown(KeyCode.T))
-            {
-                cam.SetActive(true);
-                cam2.SetActive(false);
-
-                tPressed = 0;
-            }
         }
-        else if (tPressed == 0)
-        {
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                cam.SetActive(false);
-                cam2.SetActive(true);
-
-                tPressed = 1;
-            }
-        }
-        
 
     }
 
@@ -133,14 +90,4 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log(hit.transform.name);
         }
     }
-
-    private void PlayerShoot2()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(cam2.transform.position, cam2.transform.forward, out hit, range))
-        {
-            Debug.Log(hit.transform.name);
-        }
-    }
-
 }
